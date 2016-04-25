@@ -1,7 +1,13 @@
 package components;
 
+/**
+ * Simple Pojo for Cards
+ * @author Sean Clements, Christopher de Sousa
+ *
+ */
 public class Card {
 
+	// suit value and location to png image
 	private int suit;
 	private int value;
 	private String location;
@@ -11,7 +17,7 @@ public class Card {
 		this.value = value;
 		this.location = location;
 	}
-	
+	// Getters and Setters
 	public int getSuit() {
 		return suit;
 	}

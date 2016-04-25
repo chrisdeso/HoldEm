@@ -1,7 +1,15 @@
 package components;
 
 import java.util.Queue;
+import java.util.Random;
 
+import ai.HandEvaluator;
+
+/**
+ * Class that represents the deck of cards and actions performed on it
+ * @author Sean Clements, Christopher de Sousa
+ *
+ */
 public class Deck {
 
 	private Queue<Card> currentDeck;
@@ -110,14 +118,27 @@ public class Deck {
 	 * @return true for player, false for computer
 	 */
 	public boolean evaluateHands() {
-		return false;
+		return HandEvaluator.determineWinner(playerHand, computerHand, flop, turn, river);
 	}
 
 	/**
 	 * takes current deck and randomizes the contents
 	 */
 	private void shuffle() {
-
+		Card[] tempDeck = new Card[52];
+		Random rand = new Random();
+		for(int i = 0; i < 52; i++){
+			tempDeck[i] = currentDeck.remove();
+		}
+		for(int i = 0; i < 52; i++){
+			int position = rand.nextInt(52);
+			Card temp = tempDeck[i];
+			tempDeck[i] = tempDeck[position];
+			tempDeck[position] = temp;
+		}
+		for(int i = 0; i < 52; i++){
+			currentDeck.add(tempDeck[i]);
+		}
 	}
 
 }

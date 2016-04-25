@@ -1,6 +1,11 @@
 package ai;
 import components.Card;
 
+/**
+ * Class that determines the logic behind the computer's actions
+ * @author Sean Clements, Christopher de Sousa
+ *
+ */
 public class ComputerAI {
 
 	public int computerTurn(Card[] hand, Card[] flop, Card turn, Card river, int chips){

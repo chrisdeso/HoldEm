@@ -1,5 +1,10 @@
 package components;
 
+/**
+ * Class representing chips and the actions performed with them
+ * @author Sean Clements, Christopher de Sousa
+ *
+ */
 public class Chips {
 	
 	private int playerChips;

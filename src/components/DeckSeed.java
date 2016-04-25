@@ -1,12 +1,22 @@
 package components;
+import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Seeds the deck of cards
+ * @author Sean Clements, Christopher de Sousa
+ *
+ */
 public class DeckSeed {
 	
 	final static String PATH = "resources/images/";
 	
+	/**
+	 * Assignes 52 cards with suits, values and image locations
+	 * @return
+	 */
 	public static Queue<Card> seedDeck(){
-		Queue<Card> deck = null;
+		Queue<Card> deck = new LinkedList<Card>();
 		deck.add(new Card(1, 2, PATH + "Hearts2.png"));
 		deck.add(new Card(1, 3, PATH + "Hearts3.png"));
 		deck.add(new Card(1, 4, PATH + "Hearts4.png"));

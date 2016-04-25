@@ -18,6 +18,7 @@ public class Deck {
 	private Card[] flop = new Card[3];
 	private Card turn;
 	private Card river;
+	private String winningHand;
 
 	/**
 	 * Constuctor will seed deck and shuffle the contents
@@ -118,7 +119,13 @@ public class Deck {
 	 * @return true for player, false for computer
 	 */
 	public boolean evaluateHands() {
-		return HandEvaluator.determineWinner(playerHand, computerHand, flop, turn, river);
+		int playerScore = HandEvaluator.determineScore(playerHand, flop, turn, river);
+		int computerScore = HandEvaluator.determineScore(computerHand, computerHand, turn, river);
+		if(playerScore > computerScore){
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -139,6 +146,14 @@ public class Deck {
 		for(int i = 0; i < 52; i++){
 			currentDeck.add(tempDeck[i]);
 		}
+	}
+
+	public String getWinningHand() {
+		return winningHand;
+	}
+
+	public void setWinningHand(String winningHand) {
+		this.winningHand = winningHand;
 	}
 
 }

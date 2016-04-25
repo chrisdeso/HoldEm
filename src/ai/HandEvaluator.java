@@ -7,7 +7,7 @@ import java.util.List;
 import components.Card;
 
 /**
- * Takes into account all scenarios to divise a winner based on cards given
+ * Takes into account all scenarios to devise a winner based on cards given
  * 
  * @author Sean Clements, Christopher de Sousa
  *
@@ -42,7 +42,7 @@ public class HandEvaluator {
 	 * @param flop
 	 * @param turn
 	 * @param river
-	 * @return
+	 * @return total score
 	 */
 	public static int determineScore(Card[] hand, Card[] flop, Card turn, Card river) {
 		int total;
@@ -71,7 +71,7 @@ public class HandEvaluator {
 				}
 			}
 		}
-		total = score;
+		total = score + high;
 		reset();
 		return total;
 	}

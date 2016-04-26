@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import components.Card;
+import components.Deck;
 
 /**
  * Takes into account all scenarios to devise a winner based on cards given
@@ -25,7 +26,7 @@ public class HandEvaluator {
 	private final static int STRAIGHTFLUSH = 900;
 	private final static int ROYALFLUSH = 1000;
 
-	private static Card[] cards = new Card[9];
+	private static Card[] cards = new Card[7];
 	private static List<Integer> values = new ArrayList<Integer>();
 	private static int hearts;
 	private static int diamonds;
@@ -48,18 +49,24 @@ public class HandEvaluator {
 		int total;
 		cards[0] = hand[0];
 		cards[1] = hand[1];
-		cards[2] = flop[0];
-		cards[3] = flop[1];
-		cards[4] = flop[2];
-		cards[5] = turn;
-		cards[6] = river;
+		if(flop != null){
+			cards[2] = flop[0];
+			cards[3] = flop[1];
+			cards[4] = flop[2];
+		}
+		if(turn != null){
+			cards[5] = turn;
+		}
+		if(river != null){
+			cards[6] = river;
+		}
 		countSuits();
 		flushHand();
-		if (score < 9) {
+		if (score < 900) {
 			stackValues();
 			if (!fourOfAKindCheck()) {
 				if (!fullHouseCheck()) {
-					if (score < 6) {
+					if (score < 600) {
 						if (!straightCheck()) {
 							if (!threeOfAKindCheck()) {
 								if (!pairCheck()) {
@@ -80,18 +87,19 @@ public class HandEvaluator {
 	 * Counts suits of table cards
 	 */
 	private static void countSuits() {
-		for (int i = 0; i < 6; i++) {
-			if (cards[i].getSuit() == 1) {
-				hearts++;
-			} else if (cards[i].getSuit() == 2) {
-				diamonds++;
-			} else if (cards[i].getSuit() == 3) {
-				clubs++;
-			} else {
-				spades++;
+		for (int i = 0; i <= 6; i++) {
+			if(cards[i] != null){
+				if (cards[i].getSuit() == 1) {
+					hearts++;
+				} else if (cards[i].getSuit() == 2) {
+					diamonds++;
+				} else if (cards[i].getSuit() == 3) {
+					clubs++;
+				} else {
+					spades++;
+				}
 			}
 		}
-
 	}
 
 	/**
@@ -101,15 +109,19 @@ public class HandEvaluator {
 	private static void flushHand() {
 		if (hearts >= 5) {
 			score = FLUSH;
+			Deck.setHandResult("Flush");
 			high = straightFlushHand(1);
 		} else if (diamonds >= 5) {
 			score = FLUSH;
+			Deck.setHandResult("Flush");
 			high = straightFlushHand(2);
 		} else if (clubs >= 5) {
 			score = FLUSH;
+			Deck.setHandResult("Flush");
 			high = straightFlushHand(3);
 		} else if (spades >= 5) {
 			score = FLUSH;
+			Deck.setHandResult("Flush");
 			high = straightFlushHand(4);
 		}
 	}
@@ -124,8 +136,8 @@ public class HandEvaluator {
 	private static int straightFlushHand(int suit) {
 		int high = 0;
 		List<Integer> tempCards = new ArrayList<Integer>();
-		for (int i = 0; i < 6; i++) {
-			if (cards[i].getSuit() == suit) {
+		for (int i = 0; i <= 6; i++) {
+			if (cards[i] != null && cards[i].getSuit() == suit) {
 				tempCards.add(cards[i].getValue());
 			}
 		}
@@ -141,8 +153,10 @@ public class HandEvaluator {
 		if (straight) {
 			if (tempCards.get(-1) == 14) {
 				score = ROYALFLUSH;
+				Deck.setHandResult("Royal Flush");
 			} else {
 				score = STRAIGHTFLUSH;
+				Deck.setHandResult("Straight Flush");
 				high = tempCards.get(-1);
 			}
 		} else {
@@ -180,8 +194,10 @@ public class HandEvaluator {
 		for (int i = 0; i < 13; i++) {
 			list.add(0);
 		}
-		for (int i = 0; i < 6; i++) {
-			list.set(cards[i].getValue() - 2, list.get(cards[i].getValue() - 2) + 1);
+		for (int i = 0; i <= 6; i++) {
+			if(cards[i] != null){
+				list.set(cards[i].getValue() - 2, list.get(cards[i].getValue() - 2) + 1);
+			}
 		}
 		values = list;
 	}
@@ -194,6 +210,7 @@ public class HandEvaluator {
 	private static boolean fourOfAKindCheck() {
 		if (values.contains(4)) {
 			score = FOURKIND;
+			Deck.setHandResult("Four Of A Kind");
 			high = values.lastIndexOf(4);
 			return true;
 		}
@@ -208,6 +225,7 @@ public class HandEvaluator {
 	private static boolean fullHouseCheck() {
 		if (values.contains(3) && values.contains(2)) {
 			score = FULLHOUSE;
+			Deck.setHandResult("Full House");
 			high = values.lastIndexOf(3) + values.lastIndexOf(2);
 			return true;
 		}
@@ -229,6 +247,7 @@ public class HandEvaluator {
 			}
 			if (count == 5) {
 				score = STRAIGHT;
+				Deck.setHandResult("Straight");
 				high = i;
 				return true;
 			}
@@ -244,6 +263,7 @@ public class HandEvaluator {
 	private static boolean threeOfAKindCheck() {
 		if (values.contains(3)) {
 			score = THREEKIND;
+			Deck.setHandResult("Three Of A Kind");
 			high = values.lastIndexOf(3);
 			return true;
 		}
@@ -258,10 +278,12 @@ public class HandEvaluator {
 	private static boolean pairCheck() {
 			if (values.contains(2)) {
 				score = ONEPAIR;
+				Deck.setHandResult("One Pair");
 				high = values.lastIndexOf(2);
 				values.remove(values.lastIndexOf(2));
 				if (values.contains(2)) {
 					score = TWOPAIR;
+					Deck.setHandResult("Two Pair");
 					high += values.lastIndexOf(2);
 				}
 				return true;
@@ -278,6 +300,7 @@ public class HandEvaluator {
 			for (int i = values.size() - 1; i >= 0; i--) {
 				if (values.get(i) != 0) {
 					score = HIGH;
+					Deck.setHandResult("High Card");
 					high = values.get(i) + 2;
 					break;
 				}

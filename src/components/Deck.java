@@ -12,13 +12,14 @@ import ai.HandEvaluator;
  */
 public class Deck {
 
-	private Queue<Card> currentDeck;
-	private Card[] playerHand = new Card[2];
-	private Card[] computerHand = new Card[2];
-	private Card[] flop = new Card[3];
-	private Card turn;
-	private Card river;
-	private String winningHand;
+	private static Queue<Card> currentDeck;
+	private static Card[] playerHand = new Card[2];
+	private static Card[] computerHand = new Card[2];
+	private static Card[] flop = new Card[3];
+	private static Card turn;
+	private static Card river;
+	private static String winningHand;
+	private static String handResult;
 
 	/**
 	 * Constuctor will seed deck and shuffle the contents
@@ -99,7 +100,7 @@ public class Deck {
 	 * 
 	 * @return Card[]
 	 */
-	public Card[] getPlayerHand() {
+	public static Card[] getPlayerHand() {
 		return playerHand;
 	}
 
@@ -108,7 +109,7 @@ public class Deck {
 	 * 
 	 * @return Card[]
 	 */
-	public Card[] getComputerHand() {
+	public static Card[] getComputerHand() {
 		return computerHand;
 	}
 
@@ -119,11 +120,17 @@ public class Deck {
 	 * @return true for player, false for computer
 	 */
 	public boolean evaluateHands() {
+		String playerResult;
+		String computerResult;
 		int playerScore = HandEvaluator.determineScore(playerHand, flop, turn, river);
+		playerResult = handResult;
 		int computerScore = HandEvaluator.determineScore(computerHand, computerHand, turn, river);
+		computerResult = handResult;
 		if(playerScore > computerScore){
+			winningHand = playerResult;
 			return true;
 		} else {
+			winningHand = computerResult;
 			return false;
 		}
 	}
@@ -153,7 +160,23 @@ public class Deck {
 	}
 
 	public void setWinningHand(String winningHand) {
-		this.winningHand = winningHand;
+		Deck.winningHand = winningHand;
+	}
+	
+	public static Card getRiver(){
+		return river;
+	}
+	
+	public static Card getTurn(){
+		return turn;
+	}
+	
+	public static Card[] getFlop(){
+		return flop;
+	}
+	
+	public static void setHandResult(String result){
+		Deck.handResult = result;
 	}
 
 }

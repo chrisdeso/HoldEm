@@ -21,7 +21,7 @@ public class UserView extends JFrame {
     private JButton foldButton = new JButton();
     private JButton dealButton = new JButton();
     private JTextArea betBox = new JTextArea();
-    private Deck tableCards = new Deck();
+    //private Deck tableCards = new Deck();
 
     // Populate view
     public UserView () {

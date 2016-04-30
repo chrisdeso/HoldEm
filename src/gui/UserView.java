@@ -31,12 +31,16 @@ public class UserView extends JFrame implements ActionListener{
     // Populate view
     public UserView () {
 
-        // Create Pane (Window)
+        /*
+        * Create window pane
+        * */
         Container tablePane = getContentPane();
         tablePane.setLayout(new BorderLayout());
         tablePane.setBackground(Color.DARK_GRAY);
 
-        // Pane attributes
+        /*
+        * Window attributes
+        * */
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Hold'Em Alpha");
@@ -46,68 +50,103 @@ public class UserView extends JFrame implements ActionListener{
 
         /*
         * JPanel for cards on table
+        * @TODO
         * */
 
 
-        // Add panel at bottom of screen for buttons
+        /*
+        * Add panel with buttons (bottom of window)
+        * */
         Buttons = new JPanel();
         Buttons.setLayout(new GridLayout());
 
-        // Add Buttons panel to window (tablepane)
+
+        /*
+        * Add Buttons panel to window (tablePane)
+        * */
         tablePane.add(Buttons, BorderLayout.SOUTH);
 
         /*
         * Restart Button Logic
-        *
+        * Add to Buttons panel
         * */
         restartGameButton = new JButton("Restart");
         restartGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent restart) {
-
+                System.out.println("Restart");
+                // @TODO Add logic
             }
         });
         Buttons.add(restartGameButton);
 
+        /*
+        * Call Button attributes
+        * Add to Buttons panel
+        * */
         // Call Button attributes & add to Buttons panel
         callButton = new JButton("Call");
         callButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent call) {
-
+                System.out.println("Call");
+                // @TODO Add logic
             }
         });
-        Buttons.add(callButton);
 
+        /*
+        * Raise Button attributes
+        * Add to Buttons panel
+        * */
         // Raise Button attributes & add to Buttons panel
         raiseButton = new JButton("Raise");
         raiseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent raise) {
-
+                System.out.println("Raise");
+                // @TODO Add logic
             }
         });
         Buttons.add(raiseButton);
 
-        // Check Button attributes & add to Buttons panel
+        /*
+        * Check Button attributes
+        * Add to Buttons panel
+        * */
         checkButton = new JButton("Check");
         checkButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                System.out.println("Check");
+                // @TODO Add logic
             }
         });
         Buttons.add(checkButton);
 
-        // Fold Button attributes & add to Buttons panel
+        /*
+        * Fold Button attributes
+        * Add to Buttons panel
+        * */
         foldButton = new JButton("Fold");
         foldButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                System.out.println("Fold");
+                // @TODO Add logic
             }
         });
         Buttons.add(foldButton);
+
+
+        /*
+        * Player Card Panel
+        * @TODO add
+        * */
+
+        /*
+        * AI Card Panel
+        * @TODO add
+        * */
 
     }
 

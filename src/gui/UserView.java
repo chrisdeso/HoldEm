@@ -150,6 +150,8 @@ public class UserView extends JFrame implements ActionListener{
 
     }
 
+    public void
+
     public void display(String string) {
 
     }
@@ -161,6 +163,45 @@ public class UserView extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+    }
+
+    /*
+    * Methods to pass card image changes for all cards on table
+    * */
+    public void changeFlop1(String string) {
+
+    }
+
+    public void changeFlop2(String string) {
+
+    }
+
+    public void changeFlop3(String string) {
+
+    }
+
+    public void changeTurn(String string) {
+
+    }
+
+    public void changeRiver(String string) {
+
+    }
+
+    public void changeAiHand1(String string) {
+
+    }
+
+    public void changeAiHand2(String string) {
+
+    }
+
+    public void changePlayerHand1(String string) {
+
+    }
+
+    public void changePlayerHand2(String string) {
 
     }
 }

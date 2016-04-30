@@ -90,6 +90,10 @@ public class UserView extends JFrame implements ActionListener{
 
     }
 
+    public void display(String string) {
+
+    }
+
     // Main method
     public static void main(String[] args) {
         new UserView();

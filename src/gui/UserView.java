@@ -93,6 +93,7 @@ public class UserView extends JFrame implements ActionListener{
                 // @TODO Add logic
             }
         });
+        Buttons.add(callButton);
 
         /*
         * Raise Button attributes

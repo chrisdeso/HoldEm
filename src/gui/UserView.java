@@ -4,7 +4,8 @@ import components.Deck;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Class that represents the GUI
@@ -70,22 +71,42 @@ public class UserView extends JFrame implements ActionListener{
 
         // Call Button attributes & add to Buttons panel
         callButton = new JButton("Call");
-        callButton.setBounds(150, 600, 75, 25);
+        callButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent call) {
+
+            }
+        });
         Buttons.add(callButton);
 
         // Raise Button attributes & add to Buttons panel
         raiseButton = new JButton("Raise");
-        raiseButton.setBounds(250, 600, 75, 25);
+        raiseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent raise) {
+
+            }
+        });
         Buttons.add(raiseButton);
 
         // Check Button attributes & add to Buttons panel
         checkButton = new JButton("Check");
-        checkButton.setBounds(350, 600, 75, 25);
+        checkButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
         Buttons.add(checkButton);
 
         // Fold Button attributes & add to Buttons panel
         foldButton = new JButton("Fold");
-        foldButton.setBounds(450, 600, 75, 25);
+        foldButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
         Buttons.add(foldButton);
 
     }

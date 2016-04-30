@@ -150,8 +150,6 @@ public class UserView extends JFrame implements ActionListener{
 
     }
 
-    public void
-
     public void display(String string) {
 
     }
@@ -202,6 +200,17 @@ public class UserView extends JFrame implements ActionListener{
     }
 
     public void changePlayerHand2(String string) {
+
+    }
+
+    /*
+    * Methods for passing Player & Computer chip amounts
+    * */
+    public void currentPlayerChips(Integer num) {
+
+    }
+
+    public void currentComputerChips(Integer num) {
 
     }
 }

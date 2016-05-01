@@ -16,9 +16,9 @@ public class ComputerAI {
 
 	/**
 	 * Uses logic to determine what to do for the turn 
-	 * @return 0 for fold, 1 for check, 2 for raise
+	 * @return 4 for fold, 2 for check or call, 3 for raise
 	 */
-	public int computerTurn(){
+	public static int computerTurn(){
 		if(Deck.getRiver() == null){
 			if(Deck.getTurn() == null){
 				if(Deck.getFlop() == null){
@@ -41,7 +41,7 @@ public class ComputerAI {
 	 * determines score of current hand and adds confidence level
 	 * @param score
 	 */
-	private void handConfidence(int score){
+	private static void handConfidence(int score){
 		confidence += (score / 50);
 	}
 	
@@ -49,7 +49,7 @@ public class ComputerAI {
 	 * adds to confidence level based on turn, with computer being more willing preflop, and then more cautious while investing further
 	 * @param turn
 	 */
-	private void turnConfidence(int turn){
+	private static void turnConfidence(int turn){
 		confidence += turn;
 	}
 	
@@ -58,7 +58,7 @@ public class ComputerAI {
 	 * and pessimistic at very low levels
 	 */
 	//TODO/////////////////////This is based on if each player starts with 500 chips//////////////////////////////////
-	private void chipConfidence(){
+	private static void chipConfidence(){
 		int chips = Chips.getComputerChips();
 		if(chips < 100){
 			confidence += 8;
@@ -72,7 +72,7 @@ public class ComputerAI {
 	/**
 	 * Decides confidence level for the pre-flop phase
 	 */
-	private void preFlopDecision(){
+	private static void preFlopDecision(){
 		handConfidence(HandEvaluator.determineScore(Deck.getComputerHand(), null, null, null));
 		turnConfidence(5);
 		chipConfidence();
@@ -81,7 +81,7 @@ public class ComputerAI {
 	/**
 	 * Decides confidence level for the post-flop phase
 	 */
-	private void postFlopDecision(){
+	private static void postFlopDecision(){
 		handConfidence(HandEvaluator.determineScore(Deck.getComputerHand(), Deck.getFlop(), null, null));
 		turnConfidence(4);
 		chipConfidence();
@@ -90,7 +90,7 @@ public class ComputerAI {
 	/**
 	 * Decides confidence level for the post-turn phase
 	 */
-	private void postTurnDecision(){
+	private static void postTurnDecision(){
 		handConfidence(HandEvaluator.determineScore(Deck.getComputerHand(), Deck.getFlop(), Deck.getTurn(), null));
 		turnConfidence(7);
 		chipConfidence();
@@ -99,7 +99,7 @@ public class ComputerAI {
 	/**
 	 * Decides confidence level for the post-river phase
 	 */
-	private void postRiverDecision(){
+	private static void postRiverDecision(){
 		handConfidence(HandEvaluator.determineScore(Deck.getComputerHand(), Deck.getFlop(), Deck.getTurn(), Deck.getRiver()));
 		turnConfidence(10);
 		chipConfidence();
@@ -109,15 +109,15 @@ public class ComputerAI {
 	 * Takes confidence level and determines result from it
 	 * @return
 	 */
-	private int determineRisk(){
+	private static int determineRisk(){
 		// will need to lower this amount if computer folds too often, raise if not enough
 		if(confidence < 10){
-			return 0;
+			return 4;
 			// will need to lower this amount if computer doesn't raise enough, raise if too often
 		} else if(confidence > 20){
-			return 2;
+			return 3;
 		} else {
-			return 1;
+			return 2;
 		}
 	}
 	

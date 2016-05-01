@@ -8,8 +8,8 @@ package components;
  */
 public class Chips {
 
-	private final static int BIG = 20;
-	private final static int SMALL = 10;
+	private final static int BIG = 10;
+	private final static int SMALL = 5;
 
 	private static int playerChips;
 	private static int computerChips;
@@ -120,6 +120,16 @@ public class Chips {
 			pot = 0;
 			return computerChips;
 		}
+	}
+	
+	/**
+	 * resets the amount for when a new game is started
+	 */
+	public static void reset(){
+		playerChips = 500;
+		computerChips = 500;
+		pot = 0;
+		raiseAmount = 0;
 	}
 
 	// Getters

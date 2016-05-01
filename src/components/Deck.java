@@ -32,7 +32,7 @@ public class Deck {
 	/**
 	 * deals cards to each of the players
 	 */
-	public void deal() {
+	public static void deal() {
 		computerHand[0] = currentDeck.remove();
 		computerHand[1] = currentDeck.remove();
 		playerHand[0] = currentDeck.remove();
@@ -43,7 +43,7 @@ public class Deck {
 	 * deals cards to the flop
 	 * @return flop
 	 */
-	public Card[] dealFlop() {
+	public static Card[] dealFlop() {
 		flop[0] = currentDeck.remove();
 		flop[1] = currentDeck.remove();
 		flop[2] = currentDeck.remove();
@@ -54,7 +54,7 @@ public class Deck {
 	 * deals the turn card
 	 * @return turn
 	 */
-	public Card dealTurn() {
+	public static Card dealTurn() {
 		turn = currentDeck.remove();
 		return turn;
 	}
@@ -63,21 +63,23 @@ public class Deck {
 	 * deals the river card
 	 * @return river
 	 */
-	public Card dealRiver() {
+	public static Card dealRiver() {
 		river = currentDeck.remove();
 		return river;
 	}
 
 	/**
-	 * Collects the cards off of the table and returns them to the deck, must happen after cards are dealt
+	 * Collects the cards off of the table and returns them to the deck
 	 */
-	public void collect() {
-		currentDeck.add(computerHand[0]);
-		currentDeck.add(computerHand[1]);
-		currentDeck.add(playerHand[0]);
-		currentDeck.add(playerHand[1]);
-		computerHand = null;
-		playerHand = null;
+	public static void collect() {
+		if(playerHand != null){
+			currentDeck.add(computerHand[0]);
+			currentDeck.add(computerHand[1]);
+			currentDeck.add(playerHand[0]);
+			currentDeck.add(playerHand[1]);
+			computerHand = null;
+			playerHand = null;
+		}
 		if(flop != null){
 			currentDeck.add(flop[0]);
 			currentDeck.add(flop[1]);
@@ -138,7 +140,7 @@ public class Deck {
 	/**
 	 * takes current deck and randomizes the contents
 	 */
-	private void shuffle() {
+	private static void shuffle() {
 		Card[] tempDeck = new Card[52];
 		Random rand = new Random();
 		for(int i = 0; i < 52; i++){

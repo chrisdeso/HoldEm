@@ -121,7 +121,7 @@ public class Deck {
 	 * 
 	 * @return true for player, false for computer
 	 */
-	public boolean evaluateHands() {
+	public static boolean evaluateHands() {
 		String playerResult;
 		String computerResult;
 		int playerScore = HandEvaluator.determineScore(playerHand, flop, turn, river);
@@ -157,14 +157,10 @@ public class Deck {
 		}
 	}
 
-	public String getWinningHand() {
+	public static String getWinningHand() {
 		return winningHand;
 	}
 
-	public void setWinningHand(String winningHand) {
-		Deck.winningHand = winningHand;
-	}
-	
 	public static Card getRiver(){
 		return river;
 	}

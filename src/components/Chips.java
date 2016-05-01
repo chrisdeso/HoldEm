@@ -1,5 +1,7 @@
 package components;
 
+import gui.Application;
+
 /**
  * Class representing chips and the actions performed with them
  * 
@@ -16,20 +18,24 @@ public class Chips {
 	private static int pot;
 	private static int raiseAmount;
 
+	public Chips(){
+		
+	}
+	
 	/**
 	 * Adds small blind to pot
 	 * @param player -true, computer -false
 	 * @return chips
 	 */
-	public static int smallBlind(boolean player) {
+	public static boolean smallBlind(boolean player) {
 		if (player) {
 			playerChips -= SMALL;
 			pot += SMALL;
-			return playerChips;
+			return stakes(true, playerChips);
 		} else {
 			computerChips -= SMALL;
 			pot += SMALL;
-			return computerChips;
+			return stakes(false, computerChips);
 		}
 	}
 
@@ -38,15 +44,15 @@ public class Chips {
 	 * @param player - true, computer false
 	 * @return chips
 	 */
-	public static int bigBlind(boolean player) {
+	public static boolean bigBlind(boolean player) {
 		if(player){
 			playerChips -= BIG;
 			pot += BIG;
-			return playerChips;
+			return stakes(true, playerChips);
 		} else {
 			computerChips -= BIG;
 			pot += BIG;
-			return computerChips;
+			return stakes(false, computerChips);
 		}
 	}
 
@@ -56,16 +62,16 @@ public class Chips {
 	 * @param amount
 	 * @return chips
 	 */
-	public static int bet(boolean player, int amount) {
+	public static boolean bet(boolean player, int amount) {
 		raiseAmount = amount;
 		if(player){
 			playerChips -= amount;
 			pot += amount;
-			return playerChips;
+			return stakes(true, playerChips);
 		} else {
 			computerChips -= amount;
 			pot += amount;
-			return computerChips;
+			return stakes(false, computerChips);
 		}
 	}
 
@@ -74,17 +80,17 @@ public class Chips {
 	 * @param player -true, computer -false
 	 * @return chips
 	 */
-	public static int check(boolean player) {
+	public static boolean check(boolean player) {
 		if(player){
 			playerChips -= raiseAmount;
 			pot += raiseAmount;
 			raiseAmount = 0;
-			return playerChips;
+			return stakes(true, playerChips);
 		} else {
 			computerChips -= raiseAmount;
 			pot += raiseAmount;
 			raiseAmount = 0;
-			return computerChips;
+			return stakes(false, computerChips);
 		}
 	}
 
@@ -97,10 +103,12 @@ public class Chips {
 		if(player){
 			computerChips += pot;
 			pot = 0;
+			displayChips();
 			return computerChips;
 		} else {
 			playerChips += pot;
 			pot = 0;
+			displayChips();
 			return playerChips;
 		}
 	}
@@ -114,10 +122,12 @@ public class Chips {
 		if(player){
 			playerChips += pot;
 			pot = 0;
+			displayChips();
 			return playerChips;
 		} else {
 			computerChips += pot;
 			pot = 0;
+			displayChips();
 			return computerChips;
 		}
 	}
@@ -130,6 +140,40 @@ public class Chips {
 		computerChips = 500;
 		pot = 0;
 		raiseAmount = 0;
+	}
+	
+	/**
+	 * Determines if the player has enough to bet, and returns false if this is the last amount they can bet
+	 * @param chips
+	 * @return
+	 */
+	public static boolean stakes(boolean player, int chips){
+		boolean allIn;
+		if(chips == 5){
+			if(player){
+				pot += playerChips;
+				playerChips = 0;
+			} else {
+				pot += computerChips;
+				computerChips = 0;
+			}
+			allIn = true;
+		} else if(chips == 0){
+			allIn = true;
+		} else {
+			allIn = false;
+		}
+		displayChips();
+		return allIn;
+	}
+	
+	/**
+	 * Change the display of chips on the gui
+	 */
+	private static void displayChips(){
+		Application.table.currentPlayerChips(playerChips);
+		Application.table.currentComputerChips(computerChips);
+		// Application.table.currentPot(pot);
 	}
 
 	// Getters

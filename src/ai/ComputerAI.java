@@ -16,7 +16,7 @@ public class ComputerAI {
 
 	/**
 	 * Uses logic to determine what to do for the turn 
-	 * @return 4 for fold, 2 for check or call, 3 for raise
+	 * @return 4 for fold, 1 for check or call, 3 for raise
 	 */
 	public static int computerTurn(){
 		if(Deck.getRiver() == null){
@@ -117,7 +117,7 @@ public class ComputerAI {
 		} else if(confidence > 20){
 			return 3;
 		} else {
-			return 2;
+			return 1;
 		}
 	}
 	

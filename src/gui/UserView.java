@@ -28,6 +28,10 @@ public class UserView extends JFrame implements ActionListener{
 
     private Deck tableCards;
 
+    private boolean action;
+    private boolean performed;
+    private int playerDecision;
+
     // Populate view
     public UserView () {
 
@@ -96,6 +100,21 @@ public class UserView extends JFrame implements ActionListener{
         Buttons.add(callButton);
 
         /*
+        * Check Button attributes
+        * Add to Buttons panel
+        * */
+        checkButton = new JButton("Check");
+        checkButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Check");
+                // @TODO Add logic
+            }
+        });
+        Buttons.add(checkButton);
+
+
+        /*
         * Raise Button attributes
         * Add to Buttons panel
         * */
@@ -109,20 +128,6 @@ public class UserView extends JFrame implements ActionListener{
             }
         });
         Buttons.add(raiseButton);
-
-        /*
-        * Check Button attributes
-        * Add to Buttons panel
-        * */
-        checkButton = new JButton("Check");
-        checkButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Check");
-                // @TODO Add logic
-            }
-        });
-        Buttons.add(checkButton);
 
         /*
         * Fold Button attributes
@@ -143,11 +148,18 @@ public class UserView extends JFrame implements ActionListener{
         * Player Card Panel
         * @TODO add
         * */
+        JPanel playerCards = new JPanel();
 
         /*
         * AI Card Panel
         * @TODO add
         * */
+
+        /*
+        * Message Panel
+        * */
+        JPanel displayPanel = new JPanel();
+
 
     }
 
@@ -155,7 +167,9 @@ public class UserView extends JFrame implements ActionListener{
 
     }
 
-    // Main method
+    /*
+    * Main Method
+    * */
     public static void main(String[] args) {
         new UserView();
     }
@@ -164,6 +178,34 @@ public class UserView extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
     }
+
+    /*
+    * Set + Get methods for action state
+    * */
+    public void setPendingAction(boolean action) {
+        this.action = true;
+    }
+
+    public boolean getPendingAction() {
+        return action;
+    }
+
+    public void setActionPerformed(boolean performed) {
+        this.performed = true;
+    }
+
+    public boolean getActionPerformed() {
+        return performed;
+    }
+
+    public void setPlayerDecision(int decision) {
+        this.playerDecision = decision;
+    }
+
+    public int getPlayerDecision() {
+        return playerDecision;
+    }
+
 
     /*
     * Methods to pass card image changes for all cards on table
@@ -215,4 +257,3 @@ public class UserView extends JFrame implements ActionListener{
 
     }
 }
-

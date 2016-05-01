@@ -15,7 +15,7 @@ public class UserView extends JFrame implements ActionListener{
 
     private static Dimension userScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-    private JPanel PokerTable;
+    private JPanel tableCards;
     private JPanel Buttons;
 
     private JButton restartGameButton;
@@ -26,7 +26,7 @@ public class UserView extends JFrame implements ActionListener{
     private JButton dealButton;
     private JTextArea betBox;
 
-    private Deck tableCards;
+    private Deck cards;
 
     private boolean action;
     private boolean performed;
@@ -80,6 +80,8 @@ public class UserView extends JFrame implements ActionListener{
             public void actionPerformed(ActionEvent restart) {
                 System.out.println("Restart");
                 // @TODO Add logic
+                dispose();
+                new UserView();
             }
         });
         Buttons.add(restartGameButton);

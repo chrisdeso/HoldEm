@@ -95,6 +95,8 @@ public class UserView extends JFrame implements ActionListener{
             public void actionPerformed(ActionEvent call) {
                 System.out.println("Call");
                 // @TODO Add logic
+                playerDecision = 1;
+                performed = true;
             }
         });
         Buttons.add(callButton);
@@ -109,6 +111,8 @@ public class UserView extends JFrame implements ActionListener{
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Check");
                 // @TODO Add logic
+                playerDecision = 2;
+                performed = true;
             }
         });
         Buttons.add(checkButton);
@@ -125,6 +129,8 @@ public class UserView extends JFrame implements ActionListener{
             public void actionPerformed(ActionEvent raise) {
                 System.out.println("Raise");
                 // @TODO Add logic
+                playerDecision = 3;
+                performed = true;
             }
         });
         Buttons.add(raiseButton);
@@ -139,6 +145,8 @@ public class UserView extends JFrame implements ActionListener{
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Fold");
                 // @TODO Add logic
+                playerDecision = 4;
+                performed = true;
             }
         });
         Buttons.add(foldButton);
@@ -190,11 +198,11 @@ public class UserView extends JFrame implements ActionListener{
         return action;
     }
 
-    public void setActionPerformed(boolean performed) {
+    public void setPlayerActionPerformed(boolean performed) {
         this.performed = true;
     }
 
-    public boolean getActionPerformed() {
+    public boolean getPlayerActionPerformed() {
         return performed;
     }
 

@@ -158,7 +158,7 @@ public class UserView extends JFrame implements ActionListener{
         * Table Card Panel
         * */
         tableCards = new JPanel(new GridLayout());
-        tablePane.add(tableCards);
+        tablePane.add(tableCards, BorderLayout.CENTER);
 
         /*
         * Table card images
@@ -169,16 +169,14 @@ public class UserView extends JFrame implements ActionListener{
         * Player Card Panel
         * @TODO add
         * */
-        playerCards = new JPanel();
-        playerCards.setLayout(new GridLayout());
+        playerCards = new JPanel(new GridLayout());
 
 
         /*
         * AI Card Panel
         * @TODO add
         * */
-        computerCards = new JPanel();
-        computerCards.setLayout(new GridLayout());
+        computerCards = new JPanel(new GridLayout());
 
         /*
         * Message Panel
@@ -231,28 +229,38 @@ public class UserView extends JFrame implements ActionListener{
 
     public void changeFlop1(String string) {
         ImageIcon flop1 = new ImageIcon(string);
-        tableCards.add(new JLabel(flop1));
+        Image flop1Img = flop1.getImage();
+        flop1Img.getScaledInstance(100, 150, Image.SCALE_DEFAULT);
+        ImageIcon finalFlop1 = new ImageIcon(flop1Img);
+        tableCards.add(new JLabel(finalFlop1));
     }
 
     public void changeFlop2(String string) {
         ImageIcon flop2 = new ImageIcon(string);
+        Image flop2Img = flop2.getImage();
+        flop2Img.getScaledInstance(100, 150, Image.SCALE_DEFAULT);
         tableCards.add(new JLabel(flop2));
     }
 
     public void changeFlop3(String string) {
         ImageIcon flop3 = new ImageIcon(string);
+        Image flop3Img = flop3.getImage();
+        flop3Img.getScaledInstance(100, 150, Image.SCALE_DEFAULT);
         tableCards.add(new JLabel(flop3));
     }
 
 
     public void changeTurn(String string) {
         ImageIcon turn = new ImageIcon(string);
-
+        Image turnImg = turn.getImage();
+        turnImg.getScaledInstance(100, 150, Image.SCALE_DEFAULT);
         tableCards.add(new JLabel(turn));
     }
 
     public void changeRiver(String string) {
         ImageIcon river = new ImageIcon(string);
+        Image riverImg = river.getImage();
+        riverImg.getScaledInstance(100, 150, Image.SCALE_DEFAULT);
         tableCards.add(new JLabel(river));
     }
 

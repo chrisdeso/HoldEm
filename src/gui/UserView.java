@@ -175,17 +175,17 @@ public class UserView extends JFrame implements ActionListener{
         * */
         infoPanel = new JPanel(new GridLayout());
 
-        JButton playerBank = new JButton("Player: ");
+        JButton playerBank = new JButton("Player: " + Chips.getPlayerChips());
         playerBank.setBorderPainted(false);
         playerBank.setFocusPainted(false);
         infoPanel.add(playerBank);
 
-        JButton computerBank = new JButton("Computer: ");
+        JButton computerBank = new JButton("Computer: " + Chips.getComputerChips());
         computerBank.setBorderPainted(false);
         computerBank.setFocusPainted(false);
         infoPanel.add(computerBank);
 
-        JButton totalPot = new JButton("Pot: ");
+        JButton totalPot = new JButton("Pot: " + Chips.getPot());
         totalPot.setBorderPainted(false);
         totalPot.setFocusPainted(false);
         infoPanel.add(totalPot);
@@ -303,13 +303,11 @@ public class UserView extends JFrame implements ActionListener{
     /*
     * Methods for passing Player & Computer chip amounts
     * */
-    public int currentPlayerChips(Integer num) {
+    public void currentPlayerChips(Integer num) {
         int playerChips = Chips.getPlayerChips();
-        return playerChips;
     }
 
-    public int currentComputerChips(Integer num) {
+    public void currentComputerChips(Integer num) {
         int computerChips = Chips.getComputerChips();
-        return computerChips;
     }
 }

@@ -239,14 +239,16 @@ public class UserView extends JFrame implements ActionListener{
         ImageIcon flop2 = new ImageIcon(string);
         Image flop2Img = flop2.getImage();
         flop2Img.getScaledInstance(100, 150, Image.SCALE_DEFAULT);
-        tableCards.add(new JLabel(flop2));
+        ImageIcon finalFlop2 = new ImageIcon(flop2Img);
+        tableCards.add(new JLabel(finalFlop2));
     }
 
     public void changeFlop3(String string) {
         ImageIcon flop3 = new ImageIcon(string);
         Image flop3Img = flop3.getImage();
         flop3Img.getScaledInstance(100, 150, Image.SCALE_DEFAULT);
-        tableCards.add(new JLabel(flop3));
+        ImageIcon finalFlop3 = new ImageIcon(flop3Img);
+        tableCards.add(new JLabel(finalFlop3));
     }
 
 
@@ -254,14 +256,16 @@ public class UserView extends JFrame implements ActionListener{
         ImageIcon turn = new ImageIcon(string);
         Image turnImg = turn.getImage();
         turnImg.getScaledInstance(100, 150, Image.SCALE_DEFAULT);
-        tableCards.add(new JLabel(turn));
+        ImageIcon finalTurn = new ImageIcon(turnImg);
+        tableCards.add(new JLabel(finalTurn));
     }
 
     public void changeRiver(String string) {
         ImageIcon river = new ImageIcon(string);
         Image riverImg = river.getImage();
         riverImg.getScaledInstance(100, 150, Image.SCALE_DEFAULT);
-        tableCards.add(new JLabel(river));
+        ImageIcon finalRiver = new ImageIcon(riverImg);
+        tableCards.add(new JLabel(finalRiver));
     }
 
     public void changeAiHand1(String string) {

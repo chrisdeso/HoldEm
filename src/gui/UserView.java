@@ -15,8 +15,11 @@ public class UserView extends JFrame implements ActionListener{
 
     private static Dimension userScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-    private JPanel tableCards;
     private JPanel Buttons;
+    private JPanel tableCards;
+    private JPanel playerCards;
+    private JPanel computerCards;
+    private JPanel messagePanel;
 
     private JButton restartGameButton;
     private JButton callButton;
@@ -50,7 +53,10 @@ public class UserView extends JFrame implements ActionListener{
         setTitle("Hold'Em Alpha");
         setSize(800, 750);
         setLocation((userScreenSize.width / 2) - (getSize().width / 2), userScreenSize.height / 2 - getSize().height / 2);
-        setResizable(false);
+        setResizable(true);
+
+        ImageIcon backgroundTable = new ImageIcon("HoldEm/resources/images/Table.png");
+
 
         /*
         * JPanel for cards on table
@@ -79,7 +85,6 @@ public class UserView extends JFrame implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent restart) {
                 System.out.println("Restart");
-                // @TODO Add logic
                 dispose();
                 new UserView();
             }
@@ -96,7 +101,6 @@ public class UserView extends JFrame implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent call) {
                 System.out.println("Call");
-                // @TODO Add logic
                 playerDecision = 1;
                 performed = true;
             }
@@ -112,7 +116,6 @@ public class UserView extends JFrame implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Check");
-                // @TODO Add logic
                 playerDecision = 2;
                 performed = true;
             }
@@ -130,7 +133,6 @@ public class UserView extends JFrame implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent raise) {
                 System.out.println("Raise");
-                // @TODO Add logic
                 playerDecision = 3;
                 performed = true;
             }
@@ -146,42 +148,47 @@ public class UserView extends JFrame implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Fold");
-                // @TODO Add logic
                 playerDecision = 4;
                 performed = true;
             }
         });
         Buttons.add(foldButton);
 
+        /*
+        * Table Card Panel
+        * */
+        tableCards = new JPanel(new GridLayout());
+        tablePane.add(tableCards);
+
+        /*
+        * Table card images
+        * */
+
 
         /*
         * Player Card Panel
         * @TODO add
         * */
-        JPanel playerCards = new JPanel();
+        playerCards = new JPanel();
+        playerCards.setLayout(new GridLayout());
+
 
         /*
         * AI Card Panel
         * @TODO add
         * */
+        computerCards = new JPanel();
+        computerCards.setLayout(new GridLayout());
 
         /*
         * Message Panel
         * */
-        JPanel displayPanel = new JPanel();
-
+        messagePanel = new JPanel();
 
     }
 
     public void display(String string) {
 
-    }
-
-    /*
-    * Main Method
-    * */
-    public static void main(String[] args) {
-        new UserView();
     }
 
     @Override
@@ -220,40 +227,53 @@ public class UserView extends JFrame implements ActionListener{
     /*
     * Methods to pass card image changes for all cards on table
     * */
-    public void changeFlop1(String string) {
+    Deck deck = new Deck();
 
+    public void changeFlop1(String string) {
+        ImageIcon flop1 = new ImageIcon(string);
+        tableCards.add(new JLabel(flop1));
     }
 
     public void changeFlop2(String string) {
-
+        ImageIcon flop2 = new ImageIcon(string);
+        tableCards.add(new JLabel(flop2));
     }
 
     public void changeFlop3(String string) {
-
+        ImageIcon flop3 = new ImageIcon(string);
+        tableCards.add(new JLabel(flop3));
     }
 
-    public void changeTurn(String string) {
 
+    public void changeTurn(String string) {
+        ImageIcon turn = new ImageIcon(string);
+
+        tableCards.add(new JLabel(turn));
     }
 
     public void changeRiver(String string) {
-
+        ImageIcon river = new ImageIcon(string);
+        tableCards.add(new JLabel(river));
     }
 
     public void changeAiHand1(String string) {
-
+        ImageIcon aiHand1 = new ImageIcon(string);
+        //tableCards.add(new JLabel(aiHand1));
     }
 
     public void changeAiHand2(String string) {
-
+        ImageIcon aiHand2 = new ImageIcon(string);
+        //tableCards.add(new JLabel(aiHand2));
     }
 
     public void changePlayerHand1(String string) {
-
+        ImageIcon playerHand1 = new ImageIcon(string);
+        //tableCards.add(new JLabel(playerHand1));
     }
 
     public void changePlayerHand2(String string) {
-
+        ImageIcon playerHand2 = new ImageIcon(string);
+        //tableCards.add(new JLabel(playerHand2));
     }
 
     /*

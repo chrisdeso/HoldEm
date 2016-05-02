@@ -1,5 +1,7 @@
 package gui;
 
+import java.io.IOException;
+
 import ai.ComputerAI;
 import components.Chips;
 import components.Deck;
@@ -12,7 +14,7 @@ import components.Deck;
  */
 public class Application {
 
-	private static boolean playerTurn;
+	private static boolean playerTurn = true;
 	private static boolean gameOver;
 	private static final String DOWN = "resources/images/_Back.png";
 	private static final int FIXEDBET = 10;
@@ -22,11 +24,12 @@ public class Application {
 	 * main application of game
 	 * @param args
 	 * @throws InterruptedException
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException, IOException {
 		table = new UserView();
 		table.display("Welcome to Texas Hold'Em");
-		Deck deck = new Deck();
+		Deck.seed();
 		startGame();
 		System.exit(0);
 	}
@@ -65,6 +68,7 @@ public class Application {
 		table.changePlayerHand1(Deck.getPlayerHand()[0].getLocation());
 		table.changePlayerHand2(Deck.getPlayerHand()[1].getLocation());
 		if (playerTurn) {
+			System.out.println("Checkpoint 1");
 			table.display("Computer plays the big blind\nPlayer plays the small blind\nPlayer goes first");
 			computerStakes = Chips.bigBlind(false);
 			playerStakes = Chips.smallBlind(true);
@@ -361,6 +365,7 @@ public class Application {
 		int result = 0;
 		int currentChips;
 		if(player){
+			System.out.println("Checkpoint 2");
 			decision = playerAction();
 			who = "Player";
 			currentChips = Chips.getPlayerChips();

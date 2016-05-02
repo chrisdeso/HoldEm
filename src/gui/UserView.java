@@ -1,5 +1,6 @@
 package gui;
 
+import components.Chips;
 import components.Deck;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ public class UserView extends JFrame implements ActionListener{
     private JPanel tableCards;
     private JPanel playerCards;
     private JPanel computerCards;
-    private JPanel messagePanel;
+    private JPanel infoPanel;
 
     private JButton restartGameButton;
     private JButton callButton;
@@ -54,15 +55,6 @@ public class UserView extends JFrame implements ActionListener{
         setSize(800, 750);
         setLocation((userScreenSize.width / 2) - (getSize().width / 2), userScreenSize.height / 2 - getSize().height / 2);
         setResizable(true);
-
-        ImageIcon backgroundTable = new ImageIcon("HoldEm/resources/images/Table.png");
-
-
-        /*
-        * JPanel for cards on table
-        * @TODO
-        * */
-
 
         /*
         * Add panel with buttons (bottom of window)
@@ -157,8 +149,8 @@ public class UserView extends JFrame implements ActionListener{
         /*
         * Table Card Panel
         * */
-        tableCards = new JPanel(new GridLayout());
-        tablePane.add(tableCards, BorderLayout.CENTER);
+        tableCards = new JPanel(new BorderLayout());
+        tablePane.add(tableCards);
 
         /*
         * Table card images
@@ -167,21 +159,38 @@ public class UserView extends JFrame implements ActionListener{
 
         /*
         * Player Card Panel
-        * @TODO add
         * */
         playerCards = new JPanel(new GridLayout());
+        tablePane.add(playerCards);
 
 
         /*
         * AI Card Panel
-        * @TODO add
         * */
         computerCards = new JPanel(new GridLayout());
+        tablePane.add(computerCards);
 
         /*
-        * Message Panel
+        * Panel & buttons for pot & chips
         * */
-        messagePanel = new JPanel();
+        infoPanel = new JPanel(new GridLayout());
+
+        JButton playerBank = new JButton("Player: " + Chips.getPlayerChips());
+        playerBank.setBorderPainted(false);
+        playerBank.setFocusPainted(false);
+        infoPanel.add(playerBank);
+
+        JButton computerBank = new JButton("Computer: " + Chips.getComputerChips());
+        computerBank.setBorderPainted(false);
+        computerBank.setFocusPainted(false);
+        infoPanel.add(computerBank);
+
+        JButton totalPot = new JButton("Pot: " + Chips.getPot());
+        totalPot.setBorderPainted(false);
+        totalPot.setFocusPainted(false);
+        infoPanel.add(totalPot);
+
+        tablePane.add(infoPanel, BorderLayout.NORTH);
 
     }
 
@@ -225,7 +234,6 @@ public class UserView extends JFrame implements ActionListener{
     /*
     * Methods to pass card image changes for all cards on table
     * */
-    Deck deck = new Deck();
 
     public void changeFlop1(String string) {
         ImageIcon flop1 = new ImageIcon(string);
@@ -270,6 +278,10 @@ public class UserView extends JFrame implements ActionListener{
 
     public void changeAiHand1(String string) {
         ImageIcon aiHand1 = new ImageIcon(string);
+        Image ai1Image = aiHand1.getImage();
+        ai1Image.getScaledInstance(100, 150, Image.SCALE_DEFAULT);
+        ImageIcon finalAi1 = new ImageIcon(ai1Image);
+        computerCards.add(new JLabel(finalAi1));
         //tableCards.add(new JLabel(aiHand1));
     }
 
@@ -292,10 +304,10 @@ public class UserView extends JFrame implements ActionListener{
     * Methods for passing Player & Computer chip amounts
     * */
     public void currentPlayerChips(Integer num) {
-
+        int playerChips = Chips.getPlayerChips();
     }
 
     public void currentComputerChips(Integer num) {
-
+        int computerChips = Chips.getComputerChips();
     }
 }

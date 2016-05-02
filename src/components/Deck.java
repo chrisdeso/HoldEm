@@ -1,6 +1,6 @@
 package components;
 
-import java.util.Queue;
+import java.util.Deque;
 import java.util.Random;
 
 import ai.HandEvaluator;
@@ -12,7 +12,7 @@ import ai.HandEvaluator;
  */
 public class Deck {
 
-	private static Queue<Card> currentDeck;
+	private static Deque<Card> currentDeck;
 	private static Card[] playerHand = new Card[2];
 	private static Card[] computerHand = new Card[2];
 	private static Card[] flop = new Card[3];
@@ -21,10 +21,7 @@ public class Deck {
 	private static String winningHand;
 	private static String handResult;
 
-	/**
-	 * Constuctor will seed deck and shuffle the contents
-	 */
-	public Deck() {
+	public static void seed(){
 		currentDeck = DeckSeed.seedDeck();
 		shuffle();
 	}
@@ -33,10 +30,10 @@ public class Deck {
 	 * deals cards to each of the players
 	 */
 	public static void deal() {
-		computerHand[0] = currentDeck.remove();
-		computerHand[1] = currentDeck.remove();
-		playerHand[0] = currentDeck.remove();
-		playerHand[1] = currentDeck.remove();
+		computerHand[0] = currentDeck.removeFirst();
+		computerHand[1] = currentDeck.removeFirst();
+		playerHand[0] = currentDeck.removeFirst();
+		playerHand[1] = currentDeck.removeFirst();
 	}
 
 	/**
@@ -44,9 +41,9 @@ public class Deck {
 	 * @return flop
 	 */
 	public static Card[] dealFlop() {
-		flop[0] = currentDeck.remove();
-		flop[1] = currentDeck.remove();
-		flop[2] = currentDeck.remove();
+		flop[0] = currentDeck.removeFirst();
+		flop[1] = currentDeck.removeFirst();
+		flop[2] = currentDeck.removeFirst();
 		return flop;
 	}
 
@@ -55,7 +52,7 @@ public class Deck {
 	 * @return turn
 	 */
 	public static Card dealTurn() {
-		turn = currentDeck.remove();
+		turn = currentDeck.removeFirst();
 		return turn;
 	}
 
@@ -64,7 +61,7 @@ public class Deck {
 	 * @return river
 	 */
 	public static Card dealRiver() {
-		river = currentDeck.remove();
+		river = currentDeck.removeFirst();
 		return river;
 	}
 
@@ -72,26 +69,30 @@ public class Deck {
 	 * Collects the cards off of the table and returns them to the deck
 	 */
 	public static void collect() {
-		if(playerHand != null){
-			currentDeck.add(computerHand[0]);
-			currentDeck.add(computerHand[1]);
-			currentDeck.add(playerHand[0]);
-			currentDeck.add(playerHand[1]);
-			computerHand = null;
-			playerHand = null;
+		if(playerHand[0] != null){
+			currentDeck.addLast(computerHand[0]);
+			currentDeck.addLast(computerHand[1]);
+			currentDeck.addLast(playerHand[0]);
+			currentDeck.addLast(playerHand[1]);
+			computerHand[0] = null;
+			computerHand[1] = null;
+			playerHand[0] = null;
+			playerHand[1] = null;
 		}
-		if(flop != null){
-			currentDeck.add(flop[0]);
-			currentDeck.add(flop[1]);
-			currentDeck.add(flop[2]);
-			flop = null;
+		if(flop[0] != null){
+			currentDeck.addLast(flop[0]);
+			currentDeck.addLast(flop[1]);
+			currentDeck.addLast(flop[2]);
+			flop[0] = null;
+			flop[1] = null;
+			flop[2] = null;
 		}
 		if(turn != null){
-			currentDeck.add(turn);
+			currentDeck.addLast(turn);
 			turn = null;
 		}
 		if(river != null){
-			currentDeck.add(river);
+			currentDeck.addLast(river);
 			river = null;
 		}
 		shuffle();
@@ -144,7 +145,7 @@ public class Deck {
 		Card[] tempDeck = new Card[52];
 		Random rand = new Random();
 		for(int i = 0; i < 52; i++){
-			tempDeck[i] = currentDeck.remove();
+			tempDeck[i] = currentDeck.removeFirst();
 		}
 		for(int i = 0; i < 52; i++){
 			int position = rand.nextInt(52);
@@ -153,7 +154,7 @@ public class Deck {
 			tempDeck[position] = temp;
 		}
 		for(int i = 0; i < 52; i++){
-			currentDeck.add(tempDeck[i]);
+			currentDeck.addLast(tempDeck[i]);
 		}
 	}
 

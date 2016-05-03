@@ -173,7 +173,7 @@ public class Chips {
 	private static void displayChips(){
 		Application.table.currentPlayerChips(playerChips);
 		Application.table.currentComputerChips(computerChips);
-		// Application.table.currentPot(pot);
+		Application.table.currentPot(pot);
 	}
 
 	// Getters

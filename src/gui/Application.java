@@ -18,7 +18,7 @@ public class Application {
 	private static boolean gameOver;
 	private static final String DOWN = "resources/images/_Back.png";
 	private static final int FIXEDBET = 10;
-	public static UserView table;
+	public static PokerGui table;
 
 	/**
 	 * main application of game
@@ -27,7 +27,7 @@ public class Application {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws InterruptedException, IOException {
-		table = new UserView();
+		table = new PokerGui();
 		table.display("Welcome to Texas Hold'Em");
 		Deck.seed();
 		startGame();
@@ -65,11 +65,12 @@ public class Application {
 		int computerChips = Chips.getComputerChips();
 		Thread.sleep(2000);
 		Deck.deal();
-		table.changePlayerHand1(Deck.getPlayerHand()[0].getLocation());
-		table.changePlayerHand2(Deck.getPlayerHand()[1].getLocation());
+		table.changeCard(1, Deck.getPlayerHand()[0].getLocation());
+		table.changeCard(2, Deck.getPlayerHand()[1].getLocation());
 		if (playerTurn) {
-			System.out.println("Checkpoint 1");
-			table.display("Computer plays the big blind\nPlayer plays the small blind\nPlayer goes first");
+			table.display("Computer plays the big blind\nPlayer plays the small blind");
+			Thread.sleep(2000);
+			table.display("Player goes first");
 			computerStakes = Chips.bigBlind(false);
 			playerStakes = Chips.smallBlind(true);
 			if(playerStakes){
@@ -80,7 +81,9 @@ public class Application {
 				result = bettingRound1(true, false, 1);
 			}
 		} else {
-			table.display("Player plays the big blind\nComputer plays the small blind\nComputer goes first");
+			table.display("Player plays the big blind\nComputer plays the small blind");
+			Thread.sleep(2000);
+			table.display("Computer goes first");
 			playerStakes = Chips.bigBlind(true);
 			computerStakes = Chips.smallBlind(false);
 			if(playerStakes){
@@ -112,9 +115,11 @@ public class Application {
 		int result;
 		Thread.sleep(2000);
 		Deck.dealFlop();
-		table.changeFlop1(Deck.getFlop()[0].getLocation());
-		table.changeFlop2(Deck.getFlop()[1].getLocation());
-		table.changeFlop3(Deck.getFlop()[2].getLocation());
+		table.display("Dealing Flop");
+		table.changeCard(5, Deck.getFlop()[0].getLocation());
+		table.changeCard(6, Deck.getFlop()[1].getLocation());
+		table.changeCard(7, Deck.getFlop()[2].getLocation());
+		Thread.sleep(2000);
 		if(playerTurn){
 			result = bettingRound2(true, false, 1, 2);
 		} else {
@@ -141,7 +146,9 @@ public class Application {
 		int result;
 		Thread.sleep(2000);
 		Deck.dealTurn();
-		table.changeTurn(Deck.getTurn().getLocation());
+		table.display("Dealing the Turn");
+		table.changeCard(8, Deck.getTurn().getLocation());
+		Thread.sleep(2000);
 		if(playerTurn){
 			result = bettingRound2(true, false, 1, 3);
 		} else {
@@ -168,7 +175,9 @@ public class Application {
 		int result;
 		Thread.sleep(2000);
 		Deck.dealRiver();
-		table.changeTurn(Deck.getRiver().getLocation());
+		table.display("Dealing the river");
+		table.changeCard(9, Deck.getRiver().getLocation());
+		Thread.sleep(2000);
 		if(playerTurn){
 			result = bettingRound2(true, false, 1, 4);
 		} else {
@@ -195,8 +204,8 @@ public class Application {
 		boolean winner;
 		Thread.sleep(2000);
 		table.display("Let's see who won the round");
-		table.changeAiHand1(Deck.getComputerHand()[0].getLocation());
-		table.changeAiHand2(Deck.getComputerHand()[1].getLocation());
+		table.changeCard(3, Deck.getComputerHand()[0].getLocation());
+		table.changeCard(4, Deck.getComputerHand()[1].getLocation());
 		Thread.sleep(2000);
 		winner = Deck.evaluateHands();
 		if(winner){
@@ -225,36 +234,30 @@ public class Application {
 		Thread.sleep(2000);
 		if(player){
 			table.display("Player has gone all in");
-			if(amount > 0){
-				Chips.bet(false, amount);
-			}
 		} else {
 			table.display("Computer has gone all in");
-			if(amount > 0){
-				Chips.bet(true, amount);
-			}
 		}
 		if(stage == 1){
 			Thread.sleep(2000);
 			table.display("Turning the flop");
 			Deck.dealFlop();
-			table.changeFlop1(Deck.getFlop()[0].getLocation());
-			table.changeFlop2(Deck.getFlop()[1].getLocation());
-			table.changeFlop3(Deck.getFlop()[2].getLocation());
+			table.changeCard(5, Deck.getFlop()[0].getLocation());
+			table.changeCard(6, Deck.getFlop()[1].getLocation());
+			table.changeCard(7, Deck.getFlop()[2].getLocation());
 			stage = 2;
 		} 
 		if(stage == 2){
 			Thread.sleep(2000);
 			table.display("Turning the turn");
 			Deck.dealTurn();
-			table.changeTurn(Deck.getTurn().getLocation());
+			table.changeCard(8, Deck.getTurn().getLocation());
 			stage = 3;
 		}
 		if(stage == 3){
 			Thread.sleep(2000);
 			table.display("Turning the river");
 			Deck.dealRiver();
-			table.changeTurn(Deck.getRiver().getLocation());
+			table.changeCard(9, Deck.getRiver().getLocation());
 			stage = 4;
 		}
 		if(stage == 4){
@@ -275,9 +278,22 @@ public class Application {
 					result = 5;
 				}
 			} else {
+				if(player){
+					Thread.sleep(2000);
+					table.display("Computer has decided to call");
+					if(amount > 0){
+						Chips.bet(false, amount);
+					}
+				} else {
+					table.display("Player has decided to call");
+					if(amount > 0){
+						Chips.bet(true, amount);
+					}
+				}
+				Thread.sleep(2000);
 				table.display("Let's see who won the round");
-				table.changeAiHand1(Deck.getComputerHand()[0].getLocation());
-				table.changeAiHand2(Deck.getComputerHand()[1].getLocation());
+				table.changeCard(3, Deck.getComputerHand()[0].getLocation());
+				table.changeCard(4, Deck.getComputerHand()[1].getLocation());
 				Thread.sleep(2000);
 				winner = Deck.evaluateHands();
 				if(winner){
@@ -288,7 +304,7 @@ public class Application {
 					Chips.winnerChips(false);
 				}
 				Thread.sleep(5000);
-				if((player && winner) || (!player && !winner)){
+				if(((player && winner) || (!player && !winner)) && Chips.getPlayerChips() > 0 && Chips.getComputerChips() > 0){
 					result = 8;
 				} else {
 					result = 7;
@@ -302,26 +318,23 @@ public class Application {
 	 * Puts all the cards down
 	 */
 	private static void cardsDown() {
-		table.changeFlop1(DOWN);
-		table.changeFlop2(DOWN);
-		table.changeFlop3(DOWN);
-		table.changeTurn(DOWN);
-		table.changeRiver(DOWN);
-		table.changeAiHand1(DOWN);
-		table.changeAiHand2(DOWN);
-		table.changePlayerHand1(DOWN);
-		table.changePlayerHand2(DOWN);
+		for(int i = 1; i <= 9; i++){
+			table.changeCard(i, DOWN);
+		}
 	}
 
 	/**
 	 * loop that waits until player has selected an action
 	 * @return
+	 * @throws InterruptedException 
 	 */
-	private static int playerAction() {
+	private static int playerAction() throws InterruptedException {
 		table.setPlayerActionPerformed(false);
 		while (true) {
 			if (table.getPlayerActionPerformed()) {
 				break;
+			} else {
+				Thread.sleep(500);
 			}
 		}
 		return table.getPlayerDecision();
@@ -365,13 +378,13 @@ public class Application {
 		int result = 0;
 		int currentChips;
 		if(player){
-			System.out.println("Checkpoint 2");
-			decision = playerAction();
 			who = "Player";
 			currentChips = Chips.getPlayerChips();
 			if(stage != 1){
+				Thread.sleep(2000);
 				table.display("Player's turn");
 			}
+			decision = playerAction();
 		} else {
 			decision = ComputerAI.computerTurn();
 			who = "Computer";
@@ -439,7 +452,7 @@ public class Application {
 						table.display(who + " checks");
 						result = 2;
 					} else if(decision == 3){
-						table.display(who + "raises the amount");
+						table.display(who + " raises the amount");
 						stakes = Chips.bet(player, FIXEDBET);
 						if(stakes){
 							result = allIn(player, 1, currentChips);
@@ -488,19 +501,19 @@ public class Application {
 		String who;
 		int result = 0;
 		int currentChips;
+		if(stage > 1){
+			Thread.sleep(2000);
+		}
 		if(player){
+			table.display("Player's turn");
 			decision = playerAction();
 			who = "Player";
 			currentChips = Chips.getPlayerChips();
-			table.display("Player's turn");
 		} else {
+			table.display("Computer's turn");
 			decision = ComputerAI.computerTurn();
 			who = "Computer";
 			currentChips = Chips.getComputerChips();
-			Thread.sleep(2000);
-			table.display("Computer's turn");
-		}
-		if(!player){
 			Thread.sleep(2000);
 		}
 		if(decision == 4){

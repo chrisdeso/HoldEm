@@ -127,7 +127,7 @@ public class Deck {
 		String computerResult;
 		int playerScore = HandEvaluator.determineScore(playerHand, flop, turn, river);
 		playerResult = handResult;
-		int computerScore = HandEvaluator.determineScore(computerHand, computerHand, turn, river);
+		int computerScore = HandEvaluator.determineScore(computerHand, flop, turn, river);
 		computerResult = handResult;
 		if(playerScore > computerScore){
 			winningHand = playerResult;

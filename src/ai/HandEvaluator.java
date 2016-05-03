@@ -151,16 +151,16 @@ public class HandEvaluator {
 			}
 		}
 		if (straight) {
-			if (tempCards.get(-1) == 14) {
+			if (tempCards.get(tempCards.size() - 1) == 14) {
 				score = ROYALFLUSH;
 				Deck.setHandResult("Royal Flush");
 			} else {
 				score = STRAIGHTFLUSH;
 				Deck.setHandResult("Straight Flush");
-				high = tempCards.get(-1);
+				high = tempCards.get(tempCards.size() - 1);
 			}
 		} else {
-			high = tempCards.get(-1);
+			high = tempCards.get(tempCards.size() - 1);
 		}
 		return high;
 	}
@@ -238,19 +238,27 @@ public class HandEvaluator {
 	 * @return
 	 */
 	private static boolean straightCheck() {
-		int count = 0;
-		for (int i = 0; i < values.size(); i++) {
-			if (values.get(i) != 1) {
+		int count = 0, lastIndex = 0, highCard = 0;
+		for(int i = values.size() - 1; i >= 0; i--){
+			if(values.get(i) > 0){
+				lastIndex = i;
+				break;
+			}
+		}
+		for (int i = lastIndex; i >= 0; i--) {
+			if (values.get(i) > 0) {
 				count++;
-			} else {
+				highCard = lastIndex + 2;
+			} else if(values.get(i) == 0 && count < 5) {
 				count = 0;
+				lastIndex = i - 1;
 			}
-			if (count == 5) {
-				score = STRAIGHT;
-				Deck.setHandResult("Straight");
-				high = i;
-				return true;
-			}
+		}
+		if (count >= 5) {
+			score = STRAIGHT;
+			Deck.setHandResult("Straight");
+			high = highCard;
+			return true;
 		}
 		return false;
 	}
@@ -301,7 +309,7 @@ public class HandEvaluator {
 				if (values.get(i) != 0) {
 					score = HIGH;
 					Deck.setHandResult("High Card");
-					high = values.get(i) + 2;
+					high = values.lastIndexOf(1);
 					break;
 				}
 			}
@@ -311,7 +319,7 @@ public class HandEvaluator {
 	 * resets the scoring mechanics to null for evaluating another hand
 	 */
 	private static void reset() {
-		cards = null;
+		cards = new Card[7];
 		values.clear();
 		score = 0;
 		high = 0;

@@ -1,7 +1,7 @@
 package ai;
+
 import java.util.Random;
 
-import components.Card;
 import components.Chips;
 import components.Deck;
 
@@ -74,7 +74,7 @@ public class ComputerAI {
 	 */
 	private static void preFlopDecision(){
 		handConfidence(HandEvaluator.determineScore(Deck.getComputerHand(), null, null, null));
-		turnConfidence(5);
+		turnConfidence(6);
 		chipConfidence();
 	}
 	
@@ -110,8 +110,12 @@ public class ComputerAI {
 	 * @return
 	 */
 	private static int determineRisk(){
+		//adds some variation
+		Random rand = new Random();
+		confidence += rand.nextInt(4 + 8) - 4;
+		
 		// will need to lower this amount if computer folds too often, raise if not enough
-		if(confidence < 10){
+		if(confidence < 12){
 			return 4;
 			// will need to lower this amount if computer doesn't raise enough, raise if too often
 		} else if(confidence > 20){

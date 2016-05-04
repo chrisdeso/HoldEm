@@ -8,7 +8,6 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
@@ -29,9 +28,13 @@ import javax.swing.JTextArea;
  */
 public class PokerGui extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final Insets insets = new Insets(0, 0, 0, 0);
 	private JFrame table;
-	private JPanel gui, totalPanel, topMainLayer, topLayer, messageDisplay, cardMainPanel, cardTopPanel, computerCard1,
+	private JPanel totalPanel, topMainLayer, topLayer, messageDisplay, cardMainPanel, cardTopPanel, computerCard1,
 			computerCard2, cardMidPanel, flopCard1, flopCard2, flopCard3, turnCard, riverCard, cardLowPanel,
 			playerCard1, playerCard2, buttonPanel;
 	private JLabel playerStash, pot, computerStash, p1, p2, c1, c2, f1, f2, f3, t, r;
